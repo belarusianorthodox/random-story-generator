@@ -78,8 +78,14 @@ def loadConj():
     # conjlist: list of strings
     conjlist = string.split(line)
     return conjlist
+
 story_char = []
+
 def chooseWord(wordlist):
+    ''' 
+    creates a list of 4 proper nouns (story_char) and ramdomly selects one per usage
+    selects a random word from non-proper nouns to complete sentences
+    '''
     if wordlist == prop_nounlist:
         while len(story_char) <= 4:
             story_char.append(random.choice(wordlist))
