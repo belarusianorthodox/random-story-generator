@@ -7,15 +7,6 @@ adjlist_filename = 'adj.txt'
 prop_nounlist_filename = 'propnoun.txt'
 artlist_filename = 'article.txt'
 conjlist_filename = 'conjuction.txt'
-import random
-import string
-
-nounlist_filename = 'noun.txt'
-verblist_filename= 'verb.txt'
-adjlist_filename = 'adj.txt'
-prop_nounlist_filename = 'propnoun.txt'
-artlist_filename = 'article.txt'
-conjlist_filename = 'conjuction.txt'
 
 def loadNouns():
     '''
