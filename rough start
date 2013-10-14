@@ -2,7 +2,7 @@ import random
 import string
 
 nounlist_filename = 'noun.txt'
-verblist_filename= 'verb.txt'
+verblist_filename = 'verb.txt'
 adjlist_filename = 'adj.txt'
 prop_nounlist_filename = 'propnoun.txt'
 artlist_filename = 'article.txt'
@@ -36,15 +36,35 @@ adjlist = loadFile('adj.txt')
 nounlist2 = loadFile('noun.txt')
 artlist = loadFile('article.txt')
 conjlist = loadFile('conjuction.txt')
+pronounlist = loadFile('pronoun.txt')
+adverblist = loadFile('adverbs.txt')
 
-def get_sentence():
-    i = random.randrange(5)
-    if i <= 3:
-        sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(adjlist)).lower()+' '+str(chooseWord(nounlist2)).lower()+'.'
-        return sentence
+def get_sentence_structure():
+    i = random.randrange(7)
+    if i <= 2:
+        structure = 'simp'
+        return structure
+    elif i > 2 and i <=4:
+        structure = 'comp'
+        return structure
+    elif i > 4 and i <=6:
+        structure = 'state'
+        return structure
     else:
-        sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()+', '+str(chooseWord(conjlist))+' '+str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()
-        return sentence
+        structure = 'question'
+        return structure
+    
+def get_sentence():
+    if get_sentence_structure()== 'simp':
+        sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(adjlist)).lower()+' '+str(chooseWord(nounlist2)).lower()+'.'
+    elif get_sentence_structure()=='comp':
+        sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()+', '+str(chooseWord(conjlist))+' '+str(chooseWord(pronounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()
+    elif get_sentence_structure()== 'state' :
+        sentence = str(chooseWord(prop_nounlist))+' said,' +"'I " + str(chooseWord(verblist)).lower()+' '+str(chooseWord(adjlist)).lower()+' ' + str(chooseWord(nounlist2)).lower()+ ".'"
+    else:
+        sentence = str(chooseWord(prop_nounlist))+' said,' + "'Which "+ str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
+    return sentence
+
 def paragraph():
     for n in range(5):
         print get_sentence()
