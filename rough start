@@ -47,7 +47,7 @@ def get_sentence_structure():
     elif i > 2 and i <=5:
         structure = 'comp'
         return structure
-    elif i > 5 and i <=6:
+    elif i == 6:
         structure = 'state'
         return structure
     else:
