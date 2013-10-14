@@ -1,13 +1,16 @@
 import random
 import string
 
+'''
 nounlist_filename = 'noun.txt'
 verblist_filename = 'verb.txt'
 adjlist_filename = 'adj.txt'
 prop_nounlist_filename = 'propnoun.txt'
 artlist_filename = 'article.txt'
-conjlist_filename = 'conjuction.txt'
+conjlist_filename = 'conjunction.txt'
 questlist_filename = 'question.txt'
+being_verblist_filename= 'beingverb.txt'
+'''
 
 def loadFile(x):
     '''
@@ -17,7 +20,7 @@ def loadFile(x):
     inFile = open(x, 'r', 0)
     # line: string
     line = inFile.readline()
-    # nounlist: list of strings
+    # nounlist: list of strings
     xlist = string.split(line)
     return xlist
 
@@ -36,12 +39,14 @@ verblist = loadFile('verb.txt')
 adjlist = loadFile('adj.txt')
 nounlist2 = loadFile('noun.txt')
 artlist = loadFile('article.txt')
-conjlist = loadFile('conjuction.txt')
+conjlist = loadFile('conjunction.txt')
 pronounlist = loadFile('pronoun.txt')
 adverblist = loadFile('adverbs.txt')
 questlist = loadFile('question.txt')
+being_verblist = loadFile('beingverb.txt')
 
 def get_sentence_structure():
+
     i = random.randrange(7)
     if i <= 2:
         structure = 'simp'
@@ -55,7 +60,30 @@ def get_sentence_structure():
     else:
         structure = 'question'
         return structure
-    
+
+def get_question_grammar():
+    '''
+    gets a question word then adjusts sentence grammar accordingly
+    still a little bit off though
+    '''
+    if str(chooseWord(questlist)) == 'Who':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " + "'Who " + str(chooseWord(being_verblist))+" "+ str(chooseWord(verblist))+ " " + str(chooseWord(nounlist)) + "?'"
+    elif str(chooseWord(questlist)) == 'Whose':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'Whose "+ str(chooseWord(nounlist)) +" "+ str(chooseWord(being_verblist))+ " " +"that?'" 
+    elif str(chooseWord(questlist)) == 'What':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'What "+ str(chooseWord(nounlist)) +" "+str(chooseWord(being_verblist))+ " "+str(chooseWord(adjlist)) + "?'"
+    elif str(chooseWord(questlist)) == 'When':
+       sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'When "+ str(chooseWord(being_verblist))+" "+str(chooseWord(prop_nounlist))+" "+ str(chooseWord(verblist))+"?'"
+    elif str(chooseWord(questlist)) == 'Where':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Where "+str(chooseWord(being_verblist))+" "+str(chooseWord(artlist))+" "+str(chooseWord(nounlist2))+ "?'"
+    elif str(chooseWord(questlist)) == 'Why':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Why "+str(chooseWord(being_verblist))+ " " +str(chooseWord(nounlist))+" " +str(chooseWord(verblist))+"?'"
+    elif str(chooseWord(questlist)) == 'How':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'How "+str(chooseWord(being_verblist))+" " +str(chooseWord(nounlist2))+"?'"
+    else:
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Which"+" "+str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
+    return sentence1
+
 def get_sentence():
     if get_sentence_structure()== 'simp':
         sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(adjlist)).lower()+' '+str(chooseWord(nounlist2)).lower()+'.'
@@ -64,8 +92,8 @@ def get_sentence():
     elif get_sentence_structure()== 'state' :
         sentence = str(chooseWord(prop_nounlist))+' said,' +"'I " + str(chooseWord(verblist)).lower()+' '+str(chooseWord(adjlist)).lower()+' ' + str(chooseWord(nounlist2)).lower()+ ".'"
     else:
-        sentence = str(chooseWord(prop_nounlist))+' said,' + "'"+ str(chooseWord(questlist))+" "+str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
-    return sentence
+        sentence = get_question_grammar()
+    return sentence+" "
 
 def paragraph():
     for n in range(5):
