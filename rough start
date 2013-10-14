@@ -7,6 +7,7 @@ adjlist_filename = 'adj.txt'
 prop_nounlist_filename = 'propnoun.txt'
 artlist_filename = 'article.txt'
 conjlist_filename = 'conjuction.txt'
+questlist_filename = 'question.txt'
 
 def loadFile(x):
     '''
@@ -38,13 +39,14 @@ artlist = loadFile('article.txt')
 conjlist = loadFile('conjuction.txt')
 pronounlist = loadFile('pronoun.txt')
 adverblist = loadFile('adverbs.txt')
+questlist = loadFile('question.txt')
 
 def get_sentence_structure():
     i = random.randrange(7)
-    if i <= 3:
+    if i <= 2:
         structure = 'simp'
         return structure
-    elif i > 3 and i <=5:
+    elif i > 2 and i <=5:
         structure = 'comp'
         return structure
     elif i == 6:
@@ -62,7 +64,7 @@ def get_sentence():
     elif get_sentence_structure()== 'state' :
         sentence = str(chooseWord(prop_nounlist))+' said,' +"'I " + str(chooseWord(verblist)).lower()+' '+str(chooseWord(adjlist)).lower()+' ' + str(chooseWord(nounlist2)).lower()+ ".'"
     else:
-        sentence = str(chooseWord(prop_nounlist))+' said,' + "'Which "+ str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
+        sentence = str(chooseWord(prop_nounlist))+' said,' + "'"+ str(chooseWord(questlist))+" "+str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
     return sentence
 
 def paragraph():
