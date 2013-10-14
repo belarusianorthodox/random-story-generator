@@ -44,10 +44,10 @@ def get_sentence_structure():
     if i <= 2:
         structure = 'simp'
         return structure
-    elif i > 2 and i <=4:
+    elif i > 2 and i <=5:
         structure = 'comp'
         return structure
-    elif i > 4 and i <=6:
+    elif i > 5 and i <=6:
         structure = 'state'
         return structure
     else:
