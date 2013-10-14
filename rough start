@@ -41,10 +41,10 @@ adverblist = loadFile('adverbs.txt')
 
 def get_sentence_structure():
     i = random.randrange(7)
-    if i <= 2:
+    if i <= 3:
         structure = 'simp'
         return structure
-    elif i > 2 and i <=5:
+    elif i > 3 and i <=5:
         structure = 'comp'
         return structure
     elif i == 6:
