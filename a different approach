@@ -1,0 +1,143 @@
+import random
+import string
+
+'''
+nounlist_filename = 'noun.txt'
+verblist_filename = 'verb.txt'
+adjlist_filename = 'adj.txt'
+prop_nounlist_filename = 'propnoun.txt'
+artlist_filename = 'article.txt'
+conjlist_filename = 'conjunction.txt'
+questlist_filename = 'question.txt'
+being_verblist_filename= 'beingverb.txt'
+'''
+
+def loadFile(x):
+    '''
+    returns a list of valid nouns as string
+    '''
+    # inFile: file
+    inFile = open(x, 'r', 0)
+    # line: string
+    line = inFile.readline()
+    # nounlist: list of strings
+    xlist = string.split(line)
+    return xlist
+
+story_char = []
+def chooseWord(wordlist):
+    if wordlist == prop_nounlist:
+        while len(story_char) <= 4:
+            story_char.append(random.choice(wordlist))
+        return random.choice(story_char)
+    else:
+        return random.choice(wordlist)
+
+nounlist = loadFile('noun.txt')
+prop_nounlist = loadFile('propnoun.txt')
+verblist = loadFile('verb.txt')
+adjlist = loadFile('adj.txt')
+nounlist2 = loadFile('noun.txt')
+artlist = loadFile('article.txt')
+conjlist = loadFile('conjunction.txt')
+pronounlist = loadFile('pronoun.txt')
+adverblist = loadFile('adverbs.txt')
+questlist = loadFile('question.txt')
+being_verblist = loadFile('beingverb.txt')
+
+def get_sentence_structure():
+
+    i = random.randrange(7)
+    if i <= 2:
+        structure = 'simp'
+        return structure
+    elif i > 2 and i <=5:
+        structure = 'comp'
+        return structure
+    elif i == 6:
+        structure = 'state'
+        return structure
+    else:
+        structure = 'question'
+        return structure
+
+'''
+The following is the part that's differnt. The only thing it really fixes is the use of the article
+but I think I may be able to better build off of this. 
+'''
+vowel= ['a','e','i','o','u']
+def get_verb():
+    verb = str(chooseWord(verblist))
+    return verb
+
+def get_subject():
+    subject = str(chooseWord(prop_nounlist))
+    return subject
+def get_obj():
+    obj = str(chooseWord(nounlist2))
+    return obj
+def get_art():
+    art = str(chooseWord(artlist))
+    obj = get_obj().lower()
+    if art == 'a' and obj[0] in vowel:
+        art = 'an'
+        return art+' '+obj
+    else:
+        return art+' '+obj
+def get_conj():
+    conj = str(chooseWord(conjlist))
+    return ", "+conj
+
+def get_question_grammar():
+    '''
+    returns grammatical structure based on which question word is chosen
+    '''
+    if str(chooseWord(questlist)) == 'Who':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " + "'Who " + str(chooseWord(being_verblist))+" "+ str(chooseWord(verblist))+ " " +str(chooseWord(artlist))+" "+ str(chooseWord(nounlist)) + "?'"
+    elif str(chooseWord(questlist)) == 'Whose':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'Whose "+ str(chooseWord(nounlist)) +" "+ str(chooseWord(being_verblist))+ " " +"that?'" 
+    elif str(chooseWord(questlist)) == 'What':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'What "+ str(chooseWord(nounlist)) +" "+str(chooseWord(being_verblist))+ " "+str(chooseWord(adjlist)) + "?'"
+    elif str(chooseWord(questlist)) == 'When':
+       sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'When "+ str(chooseWord(being_verblist))+" "+str(chooseWord(prop_nounlist))+" "+ str(chooseWord(verblist))+"?'"
+    elif str(chooseWord(questlist)) == 'Where':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Where "+str(chooseWord(being_verblist))+" "+str(chooseWord(artlist))+" "+str(chooseWord(nounlist2))+ "?'"
+    elif str(chooseWord(questlist)) == 'Why':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Why "+str(chooseWord(being_verblist))+ " " +str(chooseWord(nounlist))+" " +str(chooseWord(verblist))+"?'"
+    elif str(chooseWord(questlist)) == 'How':
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'How "+str(chooseWord(being_verblist))+" " +str(chooseWord(nounlist2))+"?'"
+    else:
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Which"+" "+str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
+    return sentence1
+    
+
+def get_sentence_grammar():
+  '''
+  feeble attempt at fixing some grammatical issues
+  '''
+    sentence = []
+    if get_sentence_structure()=='simp':
+        obj = get_obj()
+        sentence.append(get_subject())
+        sentence.append(get_verb())
+        sentence.append(get_art())
+        print ' '.join(sentence)
+    elif get_sentence_structure()=='comp':
+        sentence.append(get_subject())
+        sentence.append(get_verb())
+        sentence.append(get_art())
+        sentence.append(get_conj())
+        sentence.append(get_subject())
+        sentence.append(get_verb())
+        sentence.append(get_art())
+        print ' '.join(sentence)
+    elif get_sentence_structure()=='state':
+        sentence.append(get_subject())
+        sentence.append("said, 'I")
+        sentence.append(get_verb())
+        sentence.append(get_art()+".'")
+        print ' '.join(sentence)
+    else:
+        print get_question_grammar()
+
+get_sentence_grammar()
