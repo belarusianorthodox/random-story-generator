@@ -10,6 +10,7 @@ artlist_filename = 'article.txt'
 conjlist_filename = 'conjunction.txt'
 questlist_filename = 'question.txt'
 being_verblist_filename= 'beingverb.txt'
+adverblist_filename = 'adverbs.txt
 '''
 
 def loadFile(x):
@@ -26,6 +27,9 @@ def loadFile(x):
 
 story_char = []
 def chooseWord(wordlist):
+    '''
+    randomly chooses a word while limiting the prop_nouns to four per paper
+    '''
     if wordlist == prop_nounlist:
         while len(story_char) <= 4:
             story_char.append(random.choice(wordlist))
@@ -46,12 +50,14 @@ questlist = loadFile('question.txt')
 being_verblist = loadFile('beingverb.txt')
 
 def get_sentence_structure():
-
+    '''
+    randomly chooses a sentence structure with simple being the most likely
+    '''
     i = random.randrange(7)
-    if i <= 2:
+    if i <= 3:
         structure = 'simp'
         return structure
-    elif i > 2 and i <=5:
+    elif i > 3 and i <=5:
         structure = 'comp'
         return structure
     elif i == 6:
@@ -63,11 +69,10 @@ def get_sentence_structure():
 
 def get_question_grammar():
     '''
-    gets a question word then adjusts sentence grammar accordingly
-    still a little bit off though
+    returns grammatical structure based on which question word is chosen
     '''
     if str(chooseWord(questlist)) == 'Who':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " + "'Who " + str(chooseWord(being_verblist))+" "+ str(chooseWord(verblist))+ " " + str(chooseWord(nounlist)) + "?'"
+        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " + "'Who " + str(chooseWord(being_verblist))+" "+ str(chooseWord(verblist))+ " " +str(chooseWord(artlist))+" "+ str(chooseWord(nounlist)) + "?'"
     elif str(chooseWord(questlist)) == 'Whose':
         sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'Whose "+ str(chooseWord(nounlist)) +" "+ str(chooseWord(being_verblist))+ " " +"that?'" 
     elif str(chooseWord(questlist)) == 'What':
@@ -84,11 +89,15 @@ def get_question_grammar():
         sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Which"+" "+str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
     return sentence1
 
+
 def get_sentence():
+    '''
+    randomly forms sentences based on structure from get_sentence_structure()
+    '''
     if get_sentence_structure()== 'simp':
         sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(adjlist)).lower()+' '+str(chooseWord(nounlist2)).lower()+'.'
     elif get_sentence_structure()=='comp':
-        sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()+', '+str(chooseWord(conjlist))+' '+str(chooseWord(pronounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()
+        sentence = str(chooseWord(prop_nounlist))+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()+', '+str(chooseWord(conjlist))+' '+str(chooseWord(pronounlist)).lower()+' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(artlist))+' '+str(chooseWord(nounlist2)).lower()
     elif get_sentence_structure()== 'state' :
         sentence = str(chooseWord(prop_nounlist))+' said,' +"'I " + str(chooseWord(verblist)).lower()+' '+str(chooseWord(adjlist)).lower()+' ' + str(chooseWord(nounlist2)).lower()+ ".'"
     else:
@@ -96,10 +105,17 @@ def get_sentence():
     return sentence+" "
 
 def paragraph():
+    '''
+    returns 5 sentences in paragraph form
+    '''
     for n in range(5):
         print get_sentence()
     print " "
 def paper():
+    '''
+    returns a 5 paragraph random paper
+    '''
     for n in range(5):
         paragraph()
+
 print "Once upon a time...", paper(), 'THE END.'
