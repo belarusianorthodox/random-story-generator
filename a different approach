@@ -116,7 +116,7 @@ def get_question_grammar():
         sentence1.append(get_subject())
         sentence1.append("asked, 'When")
         sentence1.append(get_being_verb())
-        sentence1.append(get_prounoun())
+        sentence1.append(get_pronoun())
         sentence1.append(get_verb()+"?'")
     elif str(chooseWord(questlist)) == 'Where':
         sentence1.append(get_subject())
