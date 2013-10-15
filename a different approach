@@ -62,13 +62,17 @@ def get_sentence_structure():
         return structure
 
 '''
-The following is the part that's differnt. The only thing it really fixes is the use of the article
-but I think I may be able to better build off of this. 
 '''
 vowel= ['a','e','i','o','u']
 def get_verb():
     verb = str(chooseWord(verblist))
     return verb
+def get_being_verb():
+    being_verb= str(chooseWord(being_verblist))
+    return being_verb
+def get_pronoun():
+    pronoun= str(chooseWord(pronounlist))
+    return pronoun
 
 def get_subject():
     subject = str(chooseWord(prop_nounlist))
@@ -92,29 +96,54 @@ def get_question_grammar():
     '''
     returns grammatical structure based on which question word is chosen
     '''
+    sentence1=[]
     if str(chooseWord(questlist)) == 'Who':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " + "'Who " + str(chooseWord(being_verblist))+" "+ str(chooseWord(verblist))+ " " +str(chooseWord(artlist))+" "+ str(chooseWord(nounlist)) + "?'"
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'Who")
+        sentence1.append(get_verb())
+        sentence1.append(get_art()+"?'")
     elif str(chooseWord(questlist)) == 'Whose':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'Whose "+ str(chooseWord(nounlist)) +" "+ str(chooseWord(being_verblist))+ " " +"that?'" 
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'Whose")
+        sentence1.append(get_verb())
+        sentence1.append(get_art()+"?'")
     elif str(chooseWord(questlist)) == 'What':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, " +"'What "+ str(chooseWord(nounlist)) +" "+str(chooseWord(being_verblist))+ " "+str(chooseWord(adjlist)) + "?'"
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'What")
+        sentence1.append(get_being_verb())
+        sentence1.append(get_art()+"?'")
     elif str(chooseWord(questlist)) == 'When':
-       sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'When "+ str(chooseWord(being_verblist))+" "+str(chooseWord(prop_nounlist))+" "+ str(chooseWord(verblist))+"?'"
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'When")
+        sentence1.append(get_being_verb())
+        sentence1.append(get_prounoun())
+        sentence1.append(get_verb()+"?'")
     elif str(chooseWord(questlist)) == 'Where':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Where "+str(chooseWord(being_verblist))+" "+str(chooseWord(artlist))+" "+str(chooseWord(nounlist2))+ "?'"
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'Where")
+        sentence1.append(get_being_verb())
+        sentence1.append(get_art()+"?'")
     elif str(chooseWord(questlist)) == 'Why':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Why "+str(chooseWord(being_verblist))+ " " +str(chooseWord(nounlist))+" " +str(chooseWord(verblist))+"?'"
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'Why")
+        sentence1.append(get_being_verb())
+        sentence1.append(get_art())
+        sentence1.append(get_verb()+"?'")
     elif str(chooseWord(questlist)) == 'How':
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'How "+str(chooseWord(being_verblist))+" " +str(chooseWord(nounlist2))+"?'"
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'How")
+        sentence1.append(get_being_verb())
+        sentence1.append(get_art()+"?'")
     else:
-        sentence1 = str(chooseWord(prop_nounlist)) + " asked, "+ "'Which"+" "+str(chooseWord(nounlist2)).lower() + ' '+str(chooseWord(verblist)).lower()+' '+str(chooseWord(adverblist)).lower() + "?'"
-    return sentence1
+        sentence1.append(get_subject())
+        sentence1.append("asked, 'Which")
+        sentence1.append(get_art())
+        sentence1.append(get_being_verb())
+        sentence1.append(get_verb()+"?'")
+    return ' '.join(sentence1)
     
 
 def get_sentence_grammar():
-  '''
-  feeble attempt at fixing some grammatical issues
-  '''
     sentence = []
     if get_sentence_structure()=='simp':
         obj = get_obj()
@@ -139,5 +168,4 @@ def get_sentence_grammar():
         print ' '.join(sentence)
     else:
         print get_question_grammar()
-
 get_sentence_grammar()
