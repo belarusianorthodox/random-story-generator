@@ -193,6 +193,9 @@ def paper():
     '''
     returns a 5 paragraph random paper
     '''
+    chooseWord(Mprop_nounlist)
+    chooseWord(Fprop_nounlist)
+    print "This is the story of {!s} and {!s}".format(Mstory_char[2], Fstory_char[2])
     for n in range(5):
         paragraph()
 
