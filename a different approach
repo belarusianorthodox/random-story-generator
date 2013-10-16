@@ -112,6 +112,9 @@ def get_conj():
     return conj
 
 def get_plural():
+    '''
+    returns proper art and obj as plural where necessary
+    '''
     art = 'the'
     obj = get_obj().lower()
     if obj[len(obj)-1] =='s':
