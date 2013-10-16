@@ -102,7 +102,7 @@ def get_art():
     elif art == 'a' and obj[len(obj)-1] =='s':
         art='the'
         return art+' '+obj
-    elif obj in vowel_sounds:
+    elif art == 'a' and obj in vowel_sounds:
         art = 'an'
         return art+' '+obj
     else:
