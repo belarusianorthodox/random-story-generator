@@ -42,12 +42,12 @@ def chooseWord(wordlist):
 nounlist = loadFile('noun.txt')
 Mprop_nounlist = loadFile('propnoun.txt')
 Fprop_nounlist = loadFile('fpropnoun.txt')
+pronounlist = loadFile('pronoun.txt')
 verblist = loadFile('verb.txt')
 adjlist = loadFile('adj.txt')
 nounlist2 = loadFile('noun.txt')
 artlist = loadFile('article.txt')
 conjlist = loadFile('conjunction.txt')
-pronounlist = loadFile('pronoun.txt')
 adverblist = loadFile('adverbs.txt')
 questlist = loadFile('question.txt')
 being_verblist = loadFile('beingverb.txt')
@@ -111,6 +111,14 @@ def get_conj():
     conj = str(chooseWord(conjlist))
     return conj
 
+def get_plural():
+    art = 'the'
+    obj = get_obj().lower()
+    if obj[len(obj)-1] =='s':
+        return art+' '+obj
+    else:
+        return art+' '+obj+'s'
+
 def get_question_grammar():
     '''
     returns grammatical structure based on which question word is chosen
@@ -157,10 +165,10 @@ def get_question_grammar():
         sentence1.append(get_subject())
         sentence1.append("asked, 'Which")
         sentence1.append('of')
-        sentence1.append(get_art())
-        sentence1.append(get_being_verb())
+        sentence1.append(get_plural())
         sentence1.append(get_verb()+"?'")
     return ' '.join(sentence1)
+
     
 
 def get_sentence_grammar():
