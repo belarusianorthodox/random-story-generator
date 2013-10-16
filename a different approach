@@ -25,7 +25,13 @@ def loadFile(x):
     xlist = string.split(line)
     return xlist
 
-Mstory_char = ['He','They',]
+def loadFiles(L):
+    p = []
+    for x in L:
+        p.append(loadFile(x))
+    return p
+
+Mstory_char = ['He','They']
 Fstory_char = ['She','They',]
 def chooseWord(wordlist):
     if wordlist == Mprop_nounlist:
@@ -39,18 +45,8 @@ def chooseWord(wordlist):
     else:
         return random.choice(wordlist)
 
-nounlist = loadFile('noun.txt')
-Mprop_nounlist = loadFile('propnoun.txt')
-Fprop_nounlist = loadFile('fpropnoun.txt')
-pronounlist = loadFile('pronoun.txt')
-verblist = loadFile('verb.txt')
-adjlist = loadFile('adj.txt')
-nounlist2 = loadFile('noun.txt')
-artlist = loadFile('article.txt')
-conjlist = loadFile('conjunction.txt')
-adverblist = loadFile('adverbs.txt')
-questlist = loadFile('question.txt')
-being_verblist = loadFile('beingverb.txt')
+(nounlist, Mprop_nounlist, Fprop_nounlist, verblist, adjlist, nounlist2, artlist, conjlist, pronounlist, adverblist, questlist, being_verblist) = loadFiles(['noun.txt','propnoun.txt','fpropnoun.txt','verb.txt','adj.txt','noun.txt','article.txt', 'conjunction.txt','pronoun.txt','adverbs.txt','question.txt','beingverb.txt'  ])
+
 
 def get_sentence_structure():
 
@@ -112,9 +108,6 @@ def get_conj():
     return conj
 
 def get_plural():
-    '''
-    returns proper art and obj as plural where necessary
-    '''
     art = 'the'
     obj = get_obj().lower()
     if obj[len(obj)-1] =='s':
@@ -163,7 +156,8 @@ def get_question_grammar():
         sentence1.append(get_subject())
         sentence1.append("asked, 'How")
         sentence1.append(get_being_verb())
-        sentence1.append(get_art()+"?'")
+        sentence1.append(get_plural())
+        sentence1.append(get_verb()+"?'")
     else:
         sentence1.append(get_subject())
         sentence1.append("asked, 'Which")
@@ -216,7 +210,7 @@ def paper():
     '''
     chooseWord(Mprop_nounlist)
     chooseWord(Fprop_nounlist)
-    print "This is the story of {!s} and {!s}".format(Mstory_char[2], Fstory_char[2])
+    print "This is the story of {!s} and {!s}.".format(Mstory_char[2], Fstory_char[2])
     for n in range(5):
         paragraph()
         
