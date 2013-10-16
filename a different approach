@@ -71,6 +71,7 @@ def get_sentence_structure():
 '''
 '''
 vowel= ['a','e','i','o','u']
+vowel_sounds = ['honest', 'hour', 'heir', 'honor']
 def get_verb():
     verb = str(chooseWord(verblist))
     return verb
@@ -101,11 +102,14 @@ def get_art():
     elif art == 'a' and obj[len(obj)-1] =='s':
         art='the'
         return art+' '+obj
+    elif obj in vowel_sounds:
+        art = 'an'
+        return art+' '+obj
     else:
         return art+' '+obj
 def get_conj():
     conj = str(chooseWord(conjlist))
-    return ", "+conj
+    return conj
 
 def get_question_grammar():
     '''
@@ -160,6 +164,9 @@ def get_question_grammar():
     
 
 def get_sentence_grammar():
+    '''
+    formats a random sentence based on generic sentence structure
+    '''
     sentence = []
     if get_sentence_structure()=='simp':
         obj = get_obj()
@@ -170,7 +177,7 @@ def get_sentence_grammar():
     elif get_sentence_structure()=='comp':
         sentence.append(get_subject())
         sentence.append(get_verb())
-        sentence.append(get_art())
+        sentence.append(get_art()+",")
         sentence.append(get_conj())
         sentence.append(get_subject().lower())
         sentence.append(get_verb())
@@ -201,5 +208,5 @@ def paper():
     print "This is the story of {!s} and {!s}".format(Mstory_char[2], Fstory_char[2])
     for n in range(5):
         paragraph()
-
+        
 print paper()
