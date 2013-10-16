@@ -98,6 +98,9 @@ def get_art():
     if art == 'a' and obj[0] in vowel:
         art = 'an'
         return art+' '+obj
+    elif art == 'a' and obj[len(obj)-1] =='s':
+        art='the'
+        return art+' '+obj
     else:
         return art+' '+obj
 def get_conj():
